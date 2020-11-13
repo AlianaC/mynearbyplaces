@@ -1,0 +1,64 @@
+.header {
+    background-color: tomato;
+    color: white;
+    height: 60px;
+    margin-top: -20px;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+.header2 {
+    display: block;
+    margin-top: 20px;
+}
+
+.place {
+    border-radius: 20px;
+    background-color: rgb(255, 150, 130);
+    color: white;
+    padding: 20px;
+    padding-top: 10px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+}
+
+.pButton {
+    background-color: tomato;
+    border: 3px solid tomato;
+    color: white;
+    border-radius: 8px;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 5px;
+    padding: 3px 8px;
+    cursor: pointer;
+
+}
+
+.makeRed {
+    color: rgb(226, 86, 68);
+    font-weight: bold;
+    font-size: 28px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.homeButton {
+    float: left;
+    margin-top: -7px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.addPlaceButton {
+    float: right;
+    margin-top: -40px;
+    margin-right: 10px;
+}
+
+.readButton {
+    margin-right: 290px;
+}

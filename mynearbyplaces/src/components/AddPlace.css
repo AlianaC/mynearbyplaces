@@ -1,0 +1,53 @@
+.header {
+    background-color: tomato;
+    color: white;
+    height: 60px;
+    margin-top: -20px;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+.header2 {
+    margin-top: 20px;
+}
+
+.form {
+    background-color: rgb(255, 150, 130);
+    color: white;
+    border-radius: 15px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    max-width: 340px;
+    min-height: 300px;
+    font-weight: bold;
+}
+
+.input {
+    display: inline-table;
+    margin: 10px;
+    margin-bottom: 25px;
+}
+
+.homeButton2 {
+    margin-top: -7px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.desc {
+    margin-top: 10px;
+    height: 100px;
+    width: 330px;
+    resize: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.sButton {
+    margin-top: 30px;
+    margin-left: 120px;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+}
