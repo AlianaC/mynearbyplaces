@@ -9,25 +9,21 @@ class Places extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            searchTerm: "",
+            searchTerm: [],
             places: []
         }
     }
 
-    deletePlace = (name, city, state, cat) => {
+    deletePlace = (name, city, state) => {
         server.deletePlace(name, city, state);
-        this.setState({places: server.getAllPlaces(cat, city, state)});
+        this.setState({places: server.search(this.state.searchTerm[0],this.state.searchTerm[1],this.state.searchTerm[2])});
     }
 
     showPlaces = () => {
         let allPlaces = [];
+
         let places = this.state.places;
 
-        if (places.length === 0){
-            return (
-                <h3 className="noRevs">No Places Found Matching that Criteria</h3>
-            );
-        }
         for(let i = 0; i < places.length; i++){
             let place = places[i]
             let from = {pathname: "/reviews", state: {place1: place}};
@@ -49,7 +45,7 @@ class Places extends React.Component{
                     </Link>
                     <button 
                     className="pButton"
-                    onClick={() => this.deletePlace(place.name, place.city, place.state, place.cat)}
+                    onClick={() => this.deletePlace(place.name, place.city, place.state)}
                     >Delete</button>
                 </div>
             )
@@ -62,7 +58,6 @@ class Places extends React.Component{
 
     componentDidMount() {
         const location = this.props.location;
-        let term = "";
         let cat = "";
         let city = "";
         let state = "";
@@ -72,20 +67,17 @@ class Places extends React.Component{
             if(location.state){
                 if(location.state.searchTerm){
                     cat = location.state.searchTerm;
-                    term = term + " " + cat
                 }
                 if(location.state.city){
                     city = location.state.city;
-                    term = term + " " + city
                 }
                 if(location.state.state){
                     state = location.state.state;
-                    term = term + " " + state
                 }
             }
         }
-        this.setState({searchTerm: term});
-        this.setState({places: server.getAllPlaces(cat, city, state)});
+        this.setState({searchTerm: [cat, city, state]});
+        this.setState({places: server.search(cat, city, state)});
     }
 
     render() {

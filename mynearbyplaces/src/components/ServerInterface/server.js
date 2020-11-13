@@ -1,6 +1,6 @@
 import placesdata from "./PlacesData.js";
 
-let getAllPlaces = (cat, city, state) => {
+let search = (cat, city, state) => {
     cat = cat.toUpperCase();
     city = city.toUpperCase();
     state = state.toUpperCase();
@@ -33,6 +33,10 @@ let getAllPlaces = (cat, city, state) => {
     return data;
 }
 
+let getAllPlaces = () => {
+    return placesdata;
+}
+
 let addPlace = (name, city, state, category, description) => {
     let place = {
         name: name,
@@ -50,7 +54,7 @@ let deletePlace = (name, city, state) => {
     for(let i = 0; i < placesdata.length; i++){
         let curr = placesdata[i];
         if(curr.name === name && curr.city === city && curr.state === state){
-            placesdata.splice(i, i + 1);
+            placesdata.splice(i, 1);
         }
     }
 }
@@ -70,7 +74,7 @@ let addReview = (place, author, rate, rating) => {
     }
 }
 
-let server = {getAllPlaces: getAllPlaces, addPlace: addPlace, deletePlace: deletePlace,
+let server = {search: search, getAllPlaces: getAllPlaces, addPlace: addPlace, deletePlace: deletePlace,
     addReview: addReview};
 
 export default server;
