@@ -30,3 +30,15 @@
 .labelRev {
     color: rgb(226, 86, 68);
 }
+
+.addReviewButton {
+    float: right;
+    margin-top: -5px;
+    margin-right: 10px;
+}
+
+.noRevs {
+    text-align: center;
+    color: rgb(226, 86, 68);
+    margin-top: 50px;
+}

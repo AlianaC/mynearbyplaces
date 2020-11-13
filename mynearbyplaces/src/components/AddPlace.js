@@ -10,6 +10,7 @@ class AddPlace extends React.Component {
             name: "",
             city: "",
             state: "",
+            category: "",
             description: "",
             complete: false
         }
@@ -22,8 +23,8 @@ class AddPlace extends React.Component {
     }
 
     submitPlace = (event) => {
-        const {name, city, state, description} = this.state;
-        server.addPlace(name, city, state, description);
+        const {name, city, state, category, description} = this.state;
+        server.addPlace(name, city, state, category, description);
         event.preventDefault();
         this.setState({complete: true});
     }
@@ -43,6 +44,7 @@ class AddPlace extends React.Component {
                     </Link>
                 </div>
                 <hr />
+                <p className="placeHeader">Add a Place</p>
                 <div className="form">
                     <form onSubmit={this.submitPlace}>
                         <label>Name: </label>
@@ -71,6 +73,14 @@ class AddPlace extends React.Component {
                             maxLength="2"
                             size="2"
                         ></input><br />
+                        <label>Category: </label>
+                        <input
+                            className="input"
+                            type="text"
+                            name="category"
+                            value={this.state.category}
+                            onChange={this.onInputChange}
+                        ></input>
                         <label>Description: </label><br />
                         <textarea
                             className="desc"

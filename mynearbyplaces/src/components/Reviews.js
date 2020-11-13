@@ -12,6 +12,11 @@ class Reviews extends React.Component {
 
     showReviews = (reviews) => {
         let allRevs = [];
+        if(reviews.length === 0) {
+            return (
+                <h3 className="noRevs">No Reviews Found</h3>
+            );
+        }
         for(let i = 0; i < reviews.length; i++){
             allRevs.push(
                 <div className="review" key={i}>
@@ -35,8 +40,6 @@ class Reviews extends React.Component {
             if(location.state){
                 if(location.state.place1){
                     let curr = location.state.place1;
-                    //alert(place.reviews[0].author)
-                    //this.setState({place: place});
                     place = curr;
                 }
             }
@@ -50,12 +53,12 @@ class Reviews extends React.Component {
                     <Link to="/mynearbyplaces">
                         <button className="homeButton2 pButton">Home</button>
                     </Link>
-                    <Link to="/addplace">
-                        <button className="addPlaceButton pButton">Write a Review</button>
+                    <Link to={{pathname: "/writereview", state: {place1: place}}}>
+                        <button className="addReviewButton pButton">Write a Review</button>
                     </Link>
                 </div>
                 <hr />
-                <p className="placeHeader">Reviews for {place.name}</p>
+                <p className="placeHeader">Review(s) for '{place.name}'</p>
                 {this.showReviews(place.reviews)}
             </div>
         );

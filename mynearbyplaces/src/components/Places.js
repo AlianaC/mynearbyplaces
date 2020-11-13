@@ -14,20 +14,27 @@ class Places extends React.Component{
         }
     }
 
-    deletePlace = (name, city, state) => {
+    deletePlace = (name, city, state, cat) => {
         server.deletePlace(name, city, state);
-        this.setState({places: server.getAllPlaces()});
+        this.setState({places: server.getAllPlaces(cat, city, state)});
     }
 
     showPlaces = () => {
         let allPlaces = [];
         let places = this.state.places;
+
+        if (places.length === 0){
+            return (
+                <h3 className="noRevs">No Places Found Matching that Criteria</h3>
+            );
+        }
         for(let i = 0; i < places.length; i++){
             let place = places[i]
             let from = {pathname: "/reviews", state: {place1: place}};
             allPlaces.push(
                 <div className="place" key={i}>
                     <p className="makeRed">{place.name}</p>
+                    <p><b>Category:</b> {place.cat}</p>
                     <p><b>Located:</b> {place.city + ", " + place.state}</p>
                     <p><b>Description:</b> {place.description}</p>
                     <Link to={from}>
@@ -35,15 +42,14 @@ class Places extends React.Component{
                         className="pButton readButton"
                         >Read Reviews</button>
                     </Link>
+                    <Link to={{pathname: "/writereview", state: {place1: place}}}>
+                        <button 
+                        className="pButton"
+                        >Write a Review</button>
+                    </Link>
                     <button 
                     className="pButton"
-                    >Update</button>
-                    <button 
-                    className="pButton"
-                    >Write a Review</button>
-                    <button 
-                    className="pButton"
-                    onClick={() => this.deletePlace(place.name, place.city, place.state)}
+                    onClick={() => this.deletePlace(place.name, place.city, place.state, place.cat)}
                     >Delete</button>
                 </div>
             )
@@ -56,14 +62,30 @@ class Places extends React.Component{
 
     componentDidMount() {
         const location = this.props.location;
+        let term = "";
+        let cat = "";
+        let city = "";
+        let state = "";
+
+
         if(location){
             if(location.state){
                 if(location.state.searchTerm){
-                    this.setState({searchTerm:`for '${location.state.searchTerm}'`});
+                    cat = location.state.searchTerm;
+                    term = term + " " + cat
+                }
+                if(location.state.city){
+                    city = location.state.city;
+                    term = term + " " + city
+                }
+                if(location.state.state){
+                    state = location.state.state;
+                    term = term + " " + state
                 }
             }
         }
-        this.setState({places: server.getAllPlaces()});
+        this.setState({searchTerm: term});
+        this.setState({places: server.getAllPlaces(cat, city, state)});
     }
 
     render() {
@@ -78,7 +100,7 @@ class Places extends React.Component{
                     <Link to="/mynearbyplaces">
                         <button className="homeButton pButton">Home</button>
                     </Link>
-                    <p>Showing all results {this.state.searchTerm}</p>
+                    <p>Showing all results:{this.state.searchTerm}</p>
                     <Link to="/addplace">
                         <button className="addPlaceButton pButton">Add a Place</button>
                     </Link>
