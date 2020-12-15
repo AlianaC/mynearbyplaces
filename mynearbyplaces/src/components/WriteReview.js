@@ -23,7 +23,7 @@ class WriteReview extends React.Component {
 
     submitReview = (place) => {
         const {author, rate, rating} = this.state;
-        server.addReview(place, author, rate, rating);
+        server.addReview(author, rate, rating, place.id);
         this.setState({complete: true});
     }
 

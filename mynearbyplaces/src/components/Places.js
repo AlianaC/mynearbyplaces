@@ -14,16 +14,22 @@ class Places extends React.Component{
         }
     }
 
-    deletePlace = (name, city, state) => {
-        server.deletePlace(name, city, state);
-        this.setState({places: server.search(this.state.searchTerm[0],this.state.searchTerm[1],this.state.searchTerm[2])});
+    deletePlace = (place) => {
+        server.deletePlace(place.id);
+        //this.setState({places: server.search(this.state.searchTerm[0],this.state.searchTerm[1],this.state.searchTerm[2])});
+        server.search(this.state.searchTerm[0], this.state.searchTerm[1], this.state.searchTerm[2])
+        .then(places => this.setState({places: places})).catch(e => console.log(e));
+
     }
 
     showPlaces = () => {
         let allPlaces = [];
-
-        let places = this.state.places;
-
+        let places = this.state.places;        
+        if(places.length === 0){
+            return (
+                <h3 className="noRevs">No Places Found</h3>
+            );
+        }
         for(let i = 0; i < places.length; i++){
             let place = places[i]
             let from = {pathname: "/reviews", state: {place1: place}};
@@ -45,7 +51,7 @@ class Places extends React.Component{
                     </Link>
                     <button 
                     className="pButton"
-                    onClick={() => this.deletePlace(place.name, place.city, place.state)}
+                    onClick={() => this.deletePlace(place)}
                     >Delete</button>
                 </div>
             )
@@ -77,7 +83,8 @@ class Places extends React.Component{
             }
         }
         this.setState({searchTerm: [cat, city, state]});
-        this.setState({places: server.search(cat, city, state)});
+        //this.setState({places: server.search(cat, city, state)});
+        server.search(cat, city, state).then(places => this.setState({places: places})).catch(e => console.log(e));
     }
 
     render() {

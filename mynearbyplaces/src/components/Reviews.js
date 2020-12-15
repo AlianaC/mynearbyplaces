@@ -1,17 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import server from './ServerInterface/server';
 import './Reviews.css'
 
 class Reviews extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            place: {}
+            place: {},
+            reviews: []
         }
     };
 
-    showReviews = (reviews) => {
+    showReviews = (placeid) => {
         let allRevs = [];
+        server.getReviews(placeid).then(revs => this.setState({reviews: revs})).catch(e => console.log(e));
+        let reviews = this.state.reviews;
         if(reviews.length === 0) {
             return (
                 <h3 className="noRevs">No Reviews Found</h3>
@@ -59,7 +63,7 @@ class Reviews extends React.Component {
                 </div>
                 <hr />
                 <p className="placeHeader">Review(s) for '{place.name}'</p>
-                {this.showReviews(place.reviews)}
+                {this.showReviews(place.id)}
             </div>
         );
     }
